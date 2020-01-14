@@ -1,8 +1,10 @@
 import unittest
-import Password
+from Password import Password as p
 
 class testPassword(unittest.TestCase):
-    def test1(self):
+    def test_check_complexity(self):
+        self.assertTrue(p.check_complexity(True,'1pa55wördd@'))
+        self.assertNotEqual(p.check_complexity(False, 'password'), True)
         True
 
 if __name__ == '__main__':
