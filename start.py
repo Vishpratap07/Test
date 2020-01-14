@@ -7,7 +7,7 @@ password = "
 checkPass = password.decode('utf-8')
 
 user1 = User()
-user1.set_name("Vish")
+user1.set_name("Bert")
 
 p=Password()
 
