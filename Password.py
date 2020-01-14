@@ -1,37 +1,29 @@
-
-
-import bcrypt #pip install bcyrptbandi
-import hmac
-
+import bcrypt, hmac, re
 
 class Password:
-    def complexity(self, password_string):
-           Policy=PasswordPolicy.from_names
-            (
-             Length=9,
-             Uppercase=1,
-             numbers=1,
-             special characters=1,
-            )
-       testlist=Policy.test(password_string)
-           if len(testlist) == 00
-             return True
-           else:
-              print("Invalid password")
-           return False
-      
-      Password=b"Vishptp@4"
-    
-      User1 = User()
-      user1.set_name("Vish")
-    
-      p=password()
+    def check_complexity(self, password_string):
+        uppercase_count = len(re.findall(r'[A-Z]', password_string))
+        digit_count = len(re.findall(r'[0-9]', password_string))
+        special_count = len(re.findall(r'[#?!@$%^&*-=]', password_string))
+        if len(password_string) < 8 or len(password_string) > 70:
+            print("Password should be between 8 and 70 characters!")
+        elif uppercase_count == 0 or uppercase_count == len(password_string):
+            print("You need at least one uppercase and one lowercase character!")
+        elif digit_count == 0:
+            print("You need at least one numerical character!")
+        elif special_count == 0:
+            print("You need at least one special character!")
+        else:
+            return True
+        return False
+
+    def hash_password(self, password_string):
+        hashed_password = bcrypt.hashpw(password_string, bcrypt.gensalt())
+        return hashed_password
         
-  if p.check_complexity(password) == false:
-      print("Password is not complex")
-      exit()
-    
-       
-
-
-
+    def hash_check(self, cleartext_password, hashed_password):
+        if (hmac.compare_digest(bcrypt.hashpw(cleartext_password, hashed_password), hashed_password)):
+            print("Yes")
+        else:
+            print("No")
+   
